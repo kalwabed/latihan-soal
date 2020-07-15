@@ -36,8 +36,18 @@ const AlertUser: React.FC<PropsAlert> = ({
             )}
 
             {!wrong && !gameOver && userAnswer.length > number && (
-                <Alert color="success" className="my-2">
-                    Benar. Poin + 10
+                <div className="my-2">
+                    {number + 1 === TOTAL_QUESTION ? (
+                        <Alert color="primary">Selesai</Alert>
+                    ) : (
+                        <Alert color="success">Benar. Poin + 10</Alert>
+                    )}
+                </div>
+            )}
+
+            {wrongCount === MAX_WRONG && (
+                <Alert color="danger" className="my-2">
+                    Banyak salahnya... maaf, ulang dari awal
                 </Alert>
             )}
         </>

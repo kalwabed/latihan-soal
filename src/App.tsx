@@ -12,34 +12,40 @@ import {
 } from 'reactstrap'
 
 import { FetchQuizQuestions } from './API'
-import { Difficulty, QuestionAnswer, AnswerObject } from './types'
+import { QuestionAnswer, AnswerObject } from './types'
 
 // components
 import DetailCard from './components/DetailCard'
 import MidPost from './components/MidPost'
 import QuestionCard from './components/QuestionCard'
 import AlertUser from './components/AlertUser'
+import UserForm from './components/UserForm'
 
 function App() {
-    const TOTAL_QUESTION = 1
-    const MAX_WRONG = 1
+    const TOTAL_QUESTION = 10
+    const MAX_WRONG = 10
     const [loading, setLoading] = useState<boolean>(false)
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
+    const [difficulty, setDifficulty] = useState<string>('')
     const [number, setNumber] = useState(0)
     const [gameOver, setGameOver] = useState(true)
     const [score, setScore] = useState(0)
     const [wrong, setWrong] = useState(false)
     const [wrongCount, setWrongCount] = useState(0)
     const [isCorrect, setIsCorrect] = useState(false)
-    // TODO tambahkan alert ketika berhasil 100 skor
+
     const startTrivia = async () => {
+        const dif = (document.querySelector(
+            'input[name=difficulty]:checked'
+        ) as HTMLInputElement).value
         setLoading(true)
+        setDifficulty(dif)
         setScore(0)
         setGameOver(false)
         setNumber(0)
         try {
-            const question = await FetchQuizQuestions(Difficulty.EASY, 10)
+            const question = await FetchQuizQuestions(difficulty, 10)
             setQuestion(question)
         } catch (err) {
             console.error(err)
@@ -90,8 +96,15 @@ function App() {
             </Navbar>
             <Row>
                 <Col md={4} sm={4}>
+                    {gameOver && number === 0 && (
+                        <Fade>
+                            <UserForm />
+                        </Fade>
+                    )}
+
                     {question && !gameOver && (
                         <DetailCard
+                            difficulty={difficulty}
                             number={number}
                             MAX_WRONG={MAX_WRONG}
                             question={question}
@@ -102,6 +115,8 @@ function App() {
                     )}
 
                     <MidPost
+                        number={number}
+                        TOTAL_QUESTION={TOTAL_QUESTION}
                         resetTrivia={resetTrivia}
                         startTrivia={startTrivia}
                         MAX_WRONG={MAX_WRONG}
@@ -120,7 +135,7 @@ function App() {
                                     setNumber(prev => prev + 1)
                                     setIsCorrect(false)
                                 }}
-                                className="my-2 mx-2"
+                                className="my-1 mx-2"
                                 color="success"
                             >
                                 <Fade tag="span">Next question</Fade>
@@ -148,12 +163,6 @@ function App() {
                             userAnswer={userAnswer ? userAnswer[number] : false}
                             totalQuestions={TOTAL_QUESTION}
                         />
-                    )}
-
-                    {wrongCount === MAX_WRONG && (
-                        <Alert color="danger" className="my-2">
-                            Banyak salahnya... maaf, ulang dari awal
-                        </Alert>
                     )}
                 </Col>
             </Row>

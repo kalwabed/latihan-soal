@@ -17,7 +17,7 @@ const QuestionCard: React.FC<Props> = ({
             <Card body outline color="dark" className="my-2">
                 <CardTitle className="text-center">
                     <span className="badge badge-primary">
-                        soal: {questionNr} dari {totalQuestions}
+                        question: {questionNr} from {totalQuestions}
                     </span>
                 </CardTitle>
                 <CardHeader>

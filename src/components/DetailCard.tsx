@@ -9,17 +9,36 @@ const DetailCard: React.FC<PropsDetail> = ({
     wrongCount,
     MAX_WRONG,
     number,
+    difficulty,
 }) => (
     <>
         <Card body outline color="dark" className="my-2">
             <CardTitle>
                 Category:{' '}
-                <span className="text-info">{question[number]?.category}</span>
+                <span className="badge badge-info">
+                    {question[number]?.category}
+                </span>
+            </CardTitle>
+            <CardTitle>
+                Difficulty:{' '}
+                <span
+                    className={
+                        difficulty === 'easy'
+                            ? 'badge badge-primary'
+                            : difficulty === 'medium'
+                            ? 'badge badge-warning'
+                            : difficulty === 'hard'
+                            ? 'badge badge-danger'
+                            : ''
+                    }
+                >
+                    {difficulty}
+                </span>
             </CardTitle>
             <Fade>
                 <p>
                     Poin: {'  '}
-                    <span className={isCorrect ? 'badge badge-success' : ''}>
+                    <span className={score > 0 ? 'badge badge-success' : ''}>
                         {score}
                     </span>
                 </p>

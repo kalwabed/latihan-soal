@@ -1,8 +1,8 @@
-import { Difficulty, Question } from './types'
+import { Question } from './types'
 import { shuffleArray } from './utils'
 
 export const FetchQuizQuestions = async (
-    difficulty: Difficulty,
+    difficulty: String | undefined,
     TOTAL_QUESTION?: number
 ): Promise<any> => {
     const endpoint = `https://opentdb.com/api.php?amount=${TOTAL_QUESTION}&difficulty=${difficulty}&type=multiple`

@@ -9,6 +9,8 @@ const MidPost: React.FC<PropsMid> = ({
     MAX_WRONG,
     loading,
     resetTrivia,
+    TOTAL_QUESTION,
+    number,
 }) => {
     return (
         <>
@@ -24,8 +26,10 @@ const MidPost: React.FC<PropsMid> = ({
             )}
 
             {!gameOver && !loading && (
-                <Button onClick={resetTrivia}>
-                    {wrongCount !== MAX_WRONG ? 'Restart' : 'New game'}
+                <Button className="my-1" onClick={resetTrivia}>
+                    {wrongCount === MAX_WRONG || number + 1 === TOTAL_QUESTION
+                        ? 'New Game'
+                        : 'Restart'}
                 </Button>
             )}
 

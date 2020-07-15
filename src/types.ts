@@ -1,9 +1,3 @@
-export enum Difficulty {
-    EASY = 'easy',
-    Medium = 'medium',
-    HARD = 'hard',
-}
-
 export type Question = {
     category: string
     correct_answer: string
@@ -34,10 +28,11 @@ export type AnswerObject = {
 export type PropsDetail = {
     isCorrect: boolean
     question: any[]
-    score?: number
+    score: number
     wrongCount: number
     MAX_WRONG?: number
     number: number
+    difficulty: string
 }
 
 export type PropsMid = {
@@ -47,6 +42,8 @@ export type PropsMid = {
     resetTrivia: any
     MAX_WRONG: number
     loading: boolean
+    number: number
+    TOTAL_QUESTION: number
 }
 
 export type PropsAlert = {
