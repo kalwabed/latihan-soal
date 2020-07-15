@@ -30,3 +30,12 @@ export type AnswerObject = {
     correct: boolean
     correctAnswer: string
 }
+
+export type PropsDetail = {
+    isCorrect: boolean
+    question: any[]
+    score?: number
+    wrongCount: number
+    MAX_WRONG?: number
+    number: number
+}

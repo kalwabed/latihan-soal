@@ -1,7 +1,7 @@
 import { Difficulty, Question } from './types'
 import { shuffleArray } from './utils'
 
-const FetchQuizQuestions = async (
+export const FetchQuizQuestions = async (
     difficulty: Difficulty,
     TOTAL_QUESTION?: number
 ): Promise<any> => {
@@ -12,5 +12,3 @@ const FetchQuizQuestions = async (
         answers: shuffleArray([...qs.incorrect_answers, qs.correct_answer]),
     }))
 }
-
-export default FetchQuizQuestions

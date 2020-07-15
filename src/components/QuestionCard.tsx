@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardBody, CardHeader, Button, Fade } from 'reactstrap'
+import { Card, CardBody, CardHeader, Button, Fade, CardTitle } from 'reactstrap'
 import { Props } from '../types'
 
 const QuestionCard: React.FC<Props> = ({
@@ -14,14 +14,18 @@ const QuestionCard: React.FC<Props> = ({
     const isClick = userAnswer?.answer
     return (
         <>
-            <Card className="mt-2">
-                {questionNr} / {totalQuestions}
+            <Card body outline color="dark" className="mt-2">
+                <CardTitle className="text-center">
+                    <span className="badge badge-primary">
+                        soal: {questionNr} dari {totalQuestions}
+                    </span>
+                </CardTitle>
                 <CardHeader>
                     <Fade>
                         <p dangerouslySetInnerHTML={{ __html: question }}></p>
                     </Fade>
                 </CardHeader>
-                <CardBody className="text-center">
+                <Card body outline color="success" className="text-center">
                     {answers.map((answer, i) => (
                         <Button
                             disabled={!!userAnswer}
@@ -44,7 +48,7 @@ const QuestionCard: React.FC<Props> = ({
                             ></span>
                         </Button>
                     ))}
-                </CardBody>
+                </Card>
             </Card>
         </>
     )

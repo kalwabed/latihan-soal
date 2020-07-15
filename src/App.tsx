@@ -11,15 +11,16 @@ import {
     NavbarBrand,
 } from 'reactstrap'
 
-import fetchQuiz from './API'
-// components
-import QuestionCard from './components/QuestionCard'
+import { FetchQuizQuestions } from './API'
 import { Difficulty, QuestionAnswer, AnswerObject } from './types'
+
+// components
+import DetailCard from './components/DetailCard'
+import QuestionCard from './components/QuestionCard'
 
 function App() {
     const TOTAL_QUESTION = 10
-    const MAX_WRONG = 5
-    const [name, setName] = useState('kalwabed')
+    const MAX_WRONG = 10
     const [loading, setLoading] = useState(false)
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
@@ -36,7 +37,7 @@ function App() {
         setGameOver(false)
         setNumber(0)
         try {
-            const question = await fetchQuiz(Difficulty.EASY, 10)
+            const question = await FetchQuizQuestions(Difficulty.EASY, 10)
             setQuestion(question)
         } catch (err) {
             console.error(err)
@@ -57,6 +58,7 @@ function App() {
                     question: question[number].question,
                     correctAnswer: question[number].correct_answer,
                 }
+                setIsCorrect(true)
                 setUserAnswer(prev => [...prev, answerObj])
             } else {
                 setWrong(true)
@@ -68,6 +70,7 @@ function App() {
     const resetTrivia = () => {
         setLoading(true)
         setGameOver(true)
+        setIsCorrect(false)
         setNumber(0)
         setQuestion([])
         setScore(0)
@@ -80,40 +83,47 @@ function App() {
         <Container>
             <Navbar color="dark" expand="md" dark>
                 <NavbarBrand href="#" className="m-auto">
-                    Kaliwa Quizz
+                    Latihan Soal
                 </NavbarBrand>
             </Navbar>
             <Row>
                 <Col xs="auto">
-                    <p>Name: Kalwabed</p>
                     {question && !gameOver && (
-                        <Fade>
-                            <p>Score: {score}</p>
-                            <p>
-                                Wrong: {wrongCount} / {MAX_WRONG}
-                            </p>
-                        </Fade>
+                        <DetailCard
+                            number={number}
+                            MAX_WRONG={MAX_WRONG}
+                            question={question}
+                            isCorrect={isCorrect}
+                            wrongCount={wrongCount}
+                            score={score}
+                        />
                     )}
 
-                    {gameOver && <Button onClick={startTrivia}>Start</Button>}
+                    {gameOver && (
+                        <Button className="my-2" onClick={startTrivia}>
+                            Start
+                        </Button>
+                    )}
 
                     {wrongCount !== MAX_WRONG &&
                         wrongCount >= 1 &&
                         wrong &&
                         !gameOver && (
                             <Alert color="danger" className="my-2">
-                                Salah lur
+                                Salah
                             </Alert>
                         )}
 
                     {!wrong && !gameOver && userAnswer.length > number && (
                         <Alert color="success" className="my-2">
-                            Bener....
+                            Benar. Score + 10
                         </Alert>
                     )}
 
                     {!gameOver && !loading && (
-                        <Button onClick={resetTrivia}>New game</Button>
+                        <Button onClick={resetTrivia}>
+                            {wrongCount !== MAX_WRONG ? 'Restart' : 'New game'}
+                        </Button>
                     )}
 
                     {!loading &&
@@ -121,10 +131,14 @@ function App() {
                         userAnswer.length === number + 1 &&
                         userAnswer.length !== TOTAL_QUESTION && (
                             <Button
-                                onClick={() => setNumber(prev => prev + 1)}
+                                onClick={() => {
+                                    setNumber(prev => prev + 1)
+                                    setIsCorrect(false)
+                                }}
                                 className="my-2 mx-2"
+                                color="success"
                             >
-                                Next question
+                                <Fade tag="span">Next question</Fade>
                             </Button>
                         )}
 
@@ -143,7 +157,7 @@ function App() {
 
                     {wrongCount === MAX_WRONG && (
                         <Alert color="danger" className="my-2">
-                            Banyak salahnya... {name} ulang dari awal
+                            Banyak salahnya... maaf, ulang dari awal
                         </Alert>
                     )}
                 </Col>
