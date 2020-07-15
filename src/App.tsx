@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
+
 import {
     Container,
     Row,
     Col,
     Button,
     Alert,
-    Spinner,
     Fade,
     Navbar,
     NavbarBrand,
@@ -16,12 +16,14 @@ import { Difficulty, QuestionAnswer, AnswerObject } from './types'
 
 // components
 import DetailCard from './components/DetailCard'
+import MidPost from './components/MidPost'
 import QuestionCard from './components/QuestionCard'
+import AlertUser from './components/AlertUser'
 
 function App() {
-    const TOTAL_QUESTION = 10
-    const MAX_WRONG = 10
-    const [loading, setLoading] = useState(false)
+    const TOTAL_QUESTION = 1
+    const MAX_WRONG = 1
+    const [loading, setLoading] = useState<boolean>(false)
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
     const [number, setNumber] = useState(0)
@@ -30,7 +32,7 @@ function App() {
     const [wrong, setWrong] = useState(false)
     const [wrongCount, setWrongCount] = useState(0)
     const [isCorrect, setIsCorrect] = useState(false)
-
+    // TODO tambahkan alert ketika berhasil 100 skor
     const startTrivia = async () => {
         setLoading(true)
         setScore(0)
@@ -87,7 +89,7 @@ function App() {
                 </NavbarBrand>
             </Navbar>
             <Row>
-                <Col xs="auto">
+                <Col md={4} sm={4}>
                     {question && !gameOver && (
                         <DetailCard
                             number={number}
@@ -99,33 +101,16 @@ function App() {
                         />
                     )}
 
-                    {gameOver && (
-                        <Button className="my-2" onClick={startTrivia}>
-                            Start
-                        </Button>
-                    )}
+                    <MidPost
+                        resetTrivia={resetTrivia}
+                        startTrivia={startTrivia}
+                        MAX_WRONG={MAX_WRONG}
+                        loading={loading}
+                        wrongCount={wrongCount}
+                        gameOver={gameOver}
+                    />
 
-                    {wrongCount !== MAX_WRONG &&
-                        wrongCount >= 1 &&
-                        wrong &&
-                        !gameOver && (
-                            <Alert color="danger" className="my-2">
-                                Salah
-                            </Alert>
-                        )}
-
-                    {!wrong && !gameOver && userAnswer.length > number && (
-                        <Alert color="success" className="my-2">
-                            Benar. Score + 10
-                        </Alert>
-                    )}
-
-                    {!gameOver && !loading && (
-                        <Button onClick={resetTrivia}>
-                            {wrongCount !== MAX_WRONG ? 'Restart' : 'New game'}
-                        </Button>
-                    )}
-
+                    {/* tombol next */}
                     {!loading &&
                         !gameOver &&
                         userAnswer.length === number + 1 &&
@@ -142,8 +127,18 @@ function App() {
                             </Button>
                         )}
 
-                    {loading && <Spinner color="primary" />}
-
+                    <AlertUser
+                        isCorrect={isCorrect}
+                        TOTAL_QUESTION={TOTAL_QUESTION}
+                        wrong={wrong}
+                        wrongCount={wrongCount}
+                        MAX_WRONG={MAX_WRONG}
+                        gameOver={gameOver}
+                        userAnswer={userAnswer}
+                        number={number}
+                    />
+                </Col>
+                <Col md={8} sm={8}>
                     {wrongCount !== MAX_WRONG && !loading && !gameOver && (
                         <QuestionCard
                             questionNr={number + 1}

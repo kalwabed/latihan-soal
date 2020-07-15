@@ -39,3 +39,23 @@ export type PropsDetail = {
     MAX_WRONG?: number
     number: number
 }
+
+export type PropsMid = {
+    gameOver: boolean
+    startTrivia: any
+    wrongCount: number
+    resetTrivia: any
+    MAX_WRONG: number
+    loading: boolean
+}
+
+export type PropsAlert = {
+    wrongCount: number
+    wrong: boolean
+    gameOver: boolean
+    MAX_WRONG: number
+    userAnswer: any[]
+    number: number
+    isCorrect: boolean
+    TOTAL_QUESTION: number
+}

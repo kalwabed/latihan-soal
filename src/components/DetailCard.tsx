@@ -18,7 +18,7 @@ const DetailCard: React.FC<PropsDetail> = ({
             </CardTitle>
             <Fade>
                 <p>
-                    Score: {'  '}
+                    Poin: {'  '}
                     <span className={isCorrect ? 'badge badge-success' : ''}>
                         {score}
                     </span>

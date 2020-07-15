@@ -17,6 +17,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "reactstrap": "^8.5.1",
+    "sweetalert2": "^9.17.0",
+    "sweetalert2-react-content": "^3.0.3",
     "typescript": "~3.7.2"
   },
   "scripts": {
