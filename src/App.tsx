@@ -5,12 +5,11 @@ import {
     Row,
     Col,
     Button,
-    Alert,
     Fade,
     Navbar,
     NavbarBrand,
 } from 'reactstrap'
-
+// TODO inputan nama pengguna dan kategori pilihan
 import { FetchQuizQuestions } from './API'
 import { QuestionAnswer, AnswerObject } from './types'
 
