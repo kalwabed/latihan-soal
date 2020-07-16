@@ -125,7 +125,8 @@ function App() {
         <Container>
             <Navbar color="dark" expand="md" dark>
                 <NavbarBrand href="#" className="m-auto">
-                    Latihan Soal
+                    <i className="devicon-react-plain"></i> kuis {'  '}
+                    <i className="devicon-typescript-plain"></i>
                 </NavbarBrand>
             </Navbar>
             <Row>
@@ -205,6 +206,14 @@ function App() {
                     )}
                 </Col>
             </Row>
+            <hr />
+            <footer>
+                <h3>
+                    <a href="https://github.com/kaliwa/latihan-soal">
+                        <i className="devicon-github-plain-wordmark"></i>
+                    </a>
+                </h3>
+            </footer>
         </Container>
     )
 }
