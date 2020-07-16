@@ -22,7 +22,7 @@ const AlertUser: React.FC<PropsAlert> = ({
         mySwal
             .fire(
                 'Berhasil',
-                `Selamat '${name}', anda telah menyelesaikan dengan baik`,
+                `Selamat ${name}, anda telah menyelesaikan dengan baik`,
                 'success'
             )
             .then(() => '')
