@@ -33,6 +33,7 @@ export type PropsDetail = {
     number: number
     difficulty: string
     name: string
+    paket: string
 }
 
 export type PropsMid = {
@@ -55,6 +56,7 @@ export type PropsAlert = {
     number: number
     isCorrect: boolean
     TOTAL_QUESTION: number
+    name: string
 }
 
 export type PropsUser = {

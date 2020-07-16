@@ -14,12 +14,16 @@ const AlertUser: React.FC<PropsAlert> = ({
     number,
     isCorrect,
     TOTAL_QUESTION,
+    name,
 }) => {
     const alertDone = () => {
         const mySwal = withReactContent(Swal)
 
         mySwal
-            .fire('Berhasil', 'Anda telah menyelesaikan dengan baik', 'success')
+            .fire(
+                'Berhasil',
+                `Selamat ${name}, anda telah menyelesaikan dengan baik', 'success`
+            )
             .then(() => '')
     }
 

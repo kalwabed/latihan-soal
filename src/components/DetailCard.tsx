@@ -10,10 +10,18 @@ const DetailCard: React.FC<PropsDetail> = ({
     number,
     difficulty,
     name,
+    paket,
 }) => {
     return (
         <>
             <Card body outline color="dark" className="my-2">
+                <span className="badge badge-primary badge-pill mb-1">
+                    {paket === '1'
+                        ? 'Latihan'
+                        : paket === '2'
+                        ? 'Ulangan'
+                        : 'Ujian'}
+                </span>
                 <CardTitle>
                     Name:{' '}
                     <span className="badge badge-secondary">

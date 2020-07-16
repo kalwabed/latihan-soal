@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Spinner } from 'reactstrap'
+import { Button, Spinner, Fade } from 'reactstrap'
 import { PropsMid } from '../types'
 
 const MidPost: React.FC<PropsMid> = ({
@@ -27,9 +27,12 @@ const MidPost: React.FC<PropsMid> = ({
 
             {!gameOver && !loading && (
                 <Button color="dark" className="my-1" onClick={resetTrivia}>
-                    {wrongCount === MAX_WRONG || number + 1 === TOTAL_QUESTION
-                        ? 'New Game'
-                        : 'Restart'}
+                    <Fade tag="span">
+                        {wrongCount === MAX_WRONG ||
+                        number + 1 === TOTAL_QUESTION
+                            ? 'New Game'
+                            : 'Restart'}
+                    </Fade>
                 </Button>
             )}
 

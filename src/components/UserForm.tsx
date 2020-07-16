@@ -38,21 +38,46 @@ const UserForm: React.FC<PropsUser> = ({ category }) => {
                         type="radio"
                         name="difficulty"
                         value="easy"
-                        label="SMA"
+                        label="SMA sederajat"
                     />
                     <CustomInput
                         id="2"
                         type="radio"
                         name="difficulty"
                         value="medium"
-                        label="Anak Bimbel"
+                        label="Perguruan tinggi"
                     />
                     <CustomInput
                         id="3"
                         type="radio"
                         name="difficulty"
                         value="hard"
-                        label="S1"
+                        label="Pengetahuanku luas"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label>Pilih paket:</Label>
+                    <CustomInput
+                        id="4"
+                        defaultChecked
+                        type="radio"
+                        name="paket"
+                        value="1"
+                        label="Latihan (10 soal, 10 kesempatan)"
+                    />
+                    <CustomInput
+                        id="5"
+                        type="radio"
+                        name="paket"
+                        value="2"
+                        label="Ulangan (20 soal, 20 kesempatan)"
+                    />
+                    <CustomInput
+                        id="6"
+                        type="radio"
+                        name="paket"
+                        value="3"
+                        label="Ujian (40 soal, 40 kesempatan)"
                     />
                 </FormGroup>
             </Form>

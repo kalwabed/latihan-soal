@@ -21,11 +21,12 @@ import AlertUser from './components/AlertUser'
 import UserForm from './components/UserForm'
 
 function App() {
-    const TOTAL_QUESTION = 10
-    const MAX_WRONG = 10
+    const [totalQuestion, setTotalQuestion] = useState(10)
+    const [maxWrong, setMaxWrong] = useState(10)
     const [loading, setLoading] = useState<boolean>(false)
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
+    const [paket, setPaket] = useState('')
     const [name, setName] = useState<string>('')
     const [listCategory, setListCategory] = useState<any[]>([])
     const [difficulty, setDifficulty] = useState<string>('')
@@ -45,6 +46,7 @@ function App() {
     }, [])
 
     const startTrivia = async () => {
+        // inputan
         const dif = (document.querySelector(
             'input[name=difficulty]:checked'
         ) as HTMLInputElement).value
@@ -54,6 +56,19 @@ function App() {
         const category = (document.querySelector(
             '.category'
         ) as HTMLInputElement).value
+        const paket = (document.querySelector(
+            'input[name=paket]:checked'
+        ) as HTMLInputElement).value
+
+        if (paket === '2') {
+            setMaxWrong(prev => prev + 10)
+            setTotalQuestion(prev => prev + 10)
+        } else if (paket === '3') {
+            setMaxWrong(prev => prev + 30)
+            setTotalQuestion(prev => prev + 30)
+        }
+
+        setPaket(paket)
         setName(username)
         setLoading(true)
         setDifficulty(dif)
@@ -98,6 +113,8 @@ function App() {
         setName('')
         setNumber(0)
         setQuestion([])
+        setMaxWrong(10)
+        setTotalQuestion(10)
         setScore(0)
         setUserAnswer([])
         setWrongCount(0)
@@ -120,23 +137,26 @@ function App() {
                     )}
 
                     {question && !gameOver && (
-                        <DetailCard
-                            difficulty={difficulty}
-                            number={number}
-                            MAX_WRONG={MAX_WRONG}
-                            question={question}
-                            name={name}
-                            wrongCount={wrongCount}
-                            score={score}
-                        />
+                        <Fade>
+                            <DetailCard
+                                paket={paket}
+                                difficulty={difficulty}
+                                number={number}
+                                MAX_WRONG={maxWrong}
+                                question={question}
+                                name={name}
+                                wrongCount={wrongCount}
+                                score={score}
+                            />
+                        </Fade>
                     )}
 
                     <MidPost
                         number={number}
-                        TOTAL_QUESTION={TOTAL_QUESTION}
+                        TOTAL_QUESTION={totalQuestion}
                         resetTrivia={resetTrivia}
                         startTrivia={startTrivia}
-                        MAX_WRONG={MAX_WRONG}
+                        MAX_WRONG={maxWrong}
                         loading={loading}
                         wrongCount={wrongCount}
                         gameOver={gameOver}
@@ -146,7 +166,7 @@ function App() {
                     {!loading &&
                         !gameOver &&
                         userAnswer.length === number + 1 &&
-                        userAnswer.length !== TOTAL_QUESTION && (
+                        userAnswer.length !== totalQuestion && (
                             <Button
                                 onClick={() => {
                                     setNumber(prev => prev + 1)
@@ -161,24 +181,26 @@ function App() {
 
                     <AlertUser
                         isCorrect={isCorrect}
-                        TOTAL_QUESTION={TOTAL_QUESTION}
+                        TOTAL_QUESTION={totalQuestion}
                         wrong={wrong}
                         wrongCount={wrongCount}
-                        MAX_WRONG={MAX_WRONG}
+                        MAX_WRONG={maxWrong}
                         gameOver={gameOver}
                         userAnswer={userAnswer}
                         number={number}
+                        name={name === '' ? 'tanpa nama' : name}
                     />
                 </Col>
+
                 <Col md={8} sm={8}>
-                    {wrongCount !== MAX_WRONG && !loading && !gameOver && (
+                    {wrongCount !== maxWrong && !loading && !gameOver && (
                         <QuestionCard
                             questionNr={number + 1}
                             callback={checkAnswer}
                             question={question[number].question}
                             answers={question[number].answers}
                             userAnswer={userAnswer ? userAnswer[number] : false}
-                            totalQuestions={TOTAL_QUESTION}
+                            totalQuestions={totalQuestion}
                         />
                     )}
                 </Col>
