@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     Container,
@@ -10,7 +10,7 @@ import {
     NavbarBrand,
 } from 'reactstrap'
 // TODO inputan nama pengguna dan kategori pilihan
-import { FetchQuizQuestions } from './API'
+import { FetchQuizQuestions, FetchCategory } from './API'
 import { QuestionAnswer, AnswerObject } from './types'
 
 // components
@@ -27,6 +27,7 @@ function App() {
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
     const [name, setName] = useState<string>('')
+    const [listCategory, setListCategory] = useState<any[]>([])
     const [difficulty, setDifficulty] = useState<string>('')
     const [number, setNumber] = useState(0)
     const [gameOver, setGameOver] = useState(true)
@@ -35,12 +36,23 @@ function App() {
     const [wrongCount, setWrongCount] = useState(0)
     const [isCorrect, setIsCorrect] = useState(false)
 
+    useEffect(() => {
+        async function fetchCategory() {
+            const data = await FetchCategory()
+            setListCategory(data)
+        }
+        fetchCategory()
+    }, [])
+
     const startTrivia = async () => {
         const dif = (document.querySelector(
             'input[name=difficulty]:checked'
         ) as HTMLInputElement).value
         const username = (document.querySelector(
             '.username'
+        ) as HTMLInputElement).value
+        const category = (document.querySelector(
+            '.category'
         ) as HTMLInputElement).value
         setName(username)
         setLoading(true)
@@ -49,7 +61,7 @@ function App() {
         setGameOver(false)
         setNumber(0)
         try {
-            const question = await FetchQuizQuestions(difficulty, 10)
+            const question = await FetchQuizQuestions(difficulty, 10, category)
             setQuestion(question)
         } catch (err) {
             console.error(err)
@@ -103,7 +115,7 @@ function App() {
                 <Col md={4} sm={4}>
                     {gameOver && number === 0 && (
                         <Fade>
-                            <UserForm />
+                            <UserForm category={listCategory} />
                         </Fade>
                     )}
 

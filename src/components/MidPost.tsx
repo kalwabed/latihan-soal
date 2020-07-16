@@ -33,7 +33,7 @@ const MidPost: React.FC<PropsMid> = ({
                 </Button>
             )}
 
-            {loading && <Spinner color="primary" />}
+            {loading && <Spinner type="grow" size="lg" color="primary" />}
         </>
     )
 }

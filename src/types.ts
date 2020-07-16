@@ -56,3 +56,12 @@ export type PropsAlert = {
     isCorrect: boolean
     TOTAL_QUESTION: number
 }
+
+export type PropsUser = {
+    category: any[]
+}
+
+export type category = {
+    id: number
+    name: string
+}
