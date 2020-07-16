@@ -1,3 +1,3 @@
 # latihan buat aplikasi kuis sederhana
 
-> **sedang dalam tahap pengembangan...**
+> Demo [https://kaliwa-kuis.vercel.app/](https://kaliwa-kuis.vercel.app/).
