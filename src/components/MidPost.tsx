@@ -26,7 +26,7 @@ const MidPost: React.FC<PropsMid> = ({
             )}
 
             {!gameOver && !loading && (
-                <Button className="my-1" onClick={resetTrivia}>
+                <Button color="dark" className="my-1" onClick={resetTrivia}>
                     {wrongCount === MAX_WRONG || number + 1 === TOTAL_QUESTION
                         ? 'New Game'
                         : 'Restart'}

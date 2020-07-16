@@ -5,14 +5,20 @@ import { PropsDetail } from '../types'
 const DetailCard: React.FC<PropsDetail> = ({
     question,
     score,
-    isCorrect,
     wrongCount,
     MAX_WRONG,
     number,
     difficulty,
+    name,
 }) => (
     <>
         <Card body outline color="dark" className="my-2">
+            <CardTitle>
+                Name:{' '}
+                <span className="badge badge-secondary">
+                    {name === '' ? 'Namanya gak diisi dong' : name}
+                </span>
+            </CardTitle>
             <CardTitle>
                 Category:{' '}
                 <span className="badge badge-info">

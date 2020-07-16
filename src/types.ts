@@ -26,13 +26,13 @@ export type AnswerObject = {
 }
 
 export type PropsDetail = {
-    isCorrect: boolean
     question: any[]
     score: number
     wrongCount: number
     MAX_WRONG?: number
     number: number
     difficulty: string
+    name: string
 }
 
 export type PropsMid = {

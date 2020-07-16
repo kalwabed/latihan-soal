@@ -1,10 +1,19 @@
 import React from 'react'
-import { Form, FormGroup, Label, CustomInput } from 'reactstrap'
+import { Form, FormGroup, Label, CustomInput, Input } from 'reactstrap'
 
 const UserForm = () => {
     return (
         <>
-            <Form className="my-2">
+            <Form className="my-2" action="#">
+                <FormGroup>
+                    <Label>Name</Label>
+                    <Input
+                        type="text"
+                        className="username"
+                        placeholder="Nama kamu"
+                        required
+                    />
+                </FormGroup>
                 <FormGroup>
                     <Label>Pilih tingkat kesulitan:</Label>
                     <CustomInput

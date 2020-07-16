@@ -47,7 +47,7 @@ const AlertUser: React.FC<PropsAlert> = ({
 
             {wrongCount === MAX_WRONG && (
                 <Alert color="danger" className="my-2">
-                    Banyak salahnya... maaf, ulang dari awal
+                    Hampir saja... oke, ulang dari awal
                 </Alert>
             )}
         </>

@@ -26,6 +26,7 @@ function App() {
     const [loading, setLoading] = useState<boolean>(false)
     const [question, setQuestion] = useState<QuestionAnswer[]>([])
     const [userAnswer, setUserAnswer] = useState<AnswerObject[]>([])
+    const [name, setName] = useState<string>('')
     const [difficulty, setDifficulty] = useState<string>('')
     const [number, setNumber] = useState(0)
     const [gameOver, setGameOver] = useState(true)
@@ -38,6 +39,10 @@ function App() {
         const dif = (document.querySelector(
             'input[name=difficulty]:checked'
         ) as HTMLInputElement).value
+        const username = (document.querySelector(
+            '.username'
+        ) as HTMLInputElement).value
+        setName(username)
         setLoading(true)
         setDifficulty(dif)
         setScore(0)
@@ -78,6 +83,7 @@ function App() {
         setLoading(true)
         setGameOver(true)
         setIsCorrect(false)
+        setName('')
         setNumber(0)
         setQuestion([])
         setScore(0)
@@ -107,7 +113,7 @@ function App() {
                             number={number}
                             MAX_WRONG={MAX_WRONG}
                             question={question}
-                            isCorrect={isCorrect}
+                            name={name}
                             wrongCount={wrongCount}
                             score={score}
                         />
